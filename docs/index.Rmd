@@ -1,0 +1,134 @@
+---
+title: "STAT 408 <br> Statistical Computing and Graphical Analysis"
+output:
+  revealjs::revealjs_presentation:
+    theme: white
+    center: true
+    transition: none
+    incremental: true
+---
+```{r setup, include=FALSE}
+require(ggplot2)
+```
+
+## Warning: Programming is Frustrating
+- All statistical analysis requires the use of the computer
+- Computers do exactly what we tell them to do, not what we're thinking they should do
+- Lots of finicky little conventions must be memorized
+- Fun part is to get it to do new and beautiful things. There is a reward in the end. Computers are fast and accurate.
+
+## Computing Basics
+- Stay organized. Create a folder for STAT 408, subfolders as needed for notes, homework, ...
+- We will work with .Rmd, .R, .sas, code files
+- Data files: .csv, .txt, .sas7bdat
+- Know where files reside
+- Back up your work: Google Drive, Dropbox, montana.box.com
+
+## Programming in General
+- Plan ahead "Top-Down" programming
+- Programming is an iterative process
+- Reproducibility - code should make sense a year from now 
+- Avoid programming with graphical interfaces - or save code run in background
+
+## R is:
+- A programming environment
+- A way to run stat analyses
+- Built of functions and objects
+- Great at making complex plots (not necessarily easy)
+- A project involving work from hundreds of people
+- Rapidly expanding. 
+
+## R is not:
+- A spreadsheet.
+- A database.
+- A place to enter data from the field directly.
+- A point-and-click environment.
+- A commercial product with professional support staff.
+
+
+## Introductions 
+I'll expect you to know all of your classmates names by the end of the year.
+
+- Name
+- Major/Minor
+- Why are you taking this course?
+- What was the best thing about your winter break?
+
+## Homework for Thursday
+Homework #1 is available on the course webpage.
+
+- Create a folder on your primary computer to store STAT408 materials.
+
+- Install R and R Studio.
+
+- Create a RMarkdown document and answer a set of questions (about yourself). Turn in your .HTML output to D2L prior to class on Thursday
+
+## Tidyverse Demo
+
+>- The `tidyverse` contains `dplyr`, `ggplot2` and a set of other useful R packages. 
+ 
+>- Most of the packages in the tidyverse were created by Hadley Wickham.
+
+>- The tidyverse is a modern way to express R code for data wrangling, storage, and visualization.
+
+```{r, eval = F}
+install.packages('tidyverse')
+```
+
+## Loading Packages
+There are two steps for using packages: installation and loading.
+
+```{r}
+library(tidyverse)
+```
+
+## Reading Data into R
+
+>- The [readr](https://readr.tidyverse.org) package is very useful for reading data into R.
+
+
+```{r}
+okcupid <- read_csv('http://math.montana.edu/ahoegh/teaching/stat408/datasets/OKCupid_profiles_clean.csv')
+```
+
+
+## Data Manipulation with dplyr
+
+>- [dplyr](https://dplyr.tidyverse.org) is useful for data manipulation and can be characterized by a set of verbs:
+  >- select
+  >- filter
+  >- group_by
+  >- mutate
+  >- sample...
+
+
+```{r}
+sample_n(okcupid,2)
+```
+
+
+## piping with %>%
+
+>- The symbol %>% is a piping operator that can be used to connect commands
+
+```{r}
+okcupid %>% group_by(sex) %>% summarize(average_age = mean(age))
+```
+
+
+## Graphics with ggplot2
+
+>- [ggplot](https://ggplot2.tidyverse.org) stands for the grammar of graphics and can be used to create figures in R.
+
+>- Layers of ggplot components are layered on top of each other using the + operator.
+
+```{r, eval = F}
+okcupid %>% filter(sex == 'm') %>% ggplot(aes(x = body_type, y = height)) + geom_violin() + ggtitle("Male Heights by Self-Reported Body Type") + xlab('Self Reported Body Type') + ylab('Height (inches)') + geom_jitter(alpha = .01)
+```
+
+
+## Graphics with ggplot2
+
+```{r, echo = F}
+okcupid %>% filter(sex == 'm') %>% ggplot(aes(x = body_type, y = height)) + geom_violin() + ggtitle("Male Heights by Self-Reported Body Type") + xlab('Self Reported Body Type') + ylab('Height (inches)') + geom_jitter(alpha = .01)
+```
