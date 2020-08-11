@@ -46,15 +46,7 @@ require(ggplot2)
 - A commercial product with professional support staff.
 
 
-## Introductions 
-I'll expect you to know all of your classmates names by the end of the year.
-
-- Name
-- Major/Minor
-- Why are you taking this course?
-- What was the best thing about your winter break?
-
-## Homework for Thursday
+## Homework 
 Homework #1 is available on the course webpage.
 
 - Create a folder on your primary computer to store STAT408 materials.
@@ -123,9 +115,15 @@ okcupid %>% group_by(sex) %>% summarize(average_age = mean(age))
 >- Layers of ggplot components are layered on top of each other using the + operator.
 
 ```{r, eval = F}
-okcupid %>% filter(sex == 'm') %>% ggplot(aes(x = body_type, y = height)) + geom_violin() + ggtitle("Male Heights by Self-Reported Body Type") + xlab('Self Reported Body Type') + ylab('Height (inches)') + geom_jitter(alpha = .01)
+okcupid %>% 
+  filter(sex == 'm') %>% 
+  ggplot(aes(x = body_type, y = height)) + 
+  geom_violin() + 
+  ggtitle("Male Heights by Self-Reported Body Type") + 
+  xlab('Self Reported Body Type') + 
+  ylab('Height (inches)') + 
+  geom_jitter(alpha = .01)
 ```
-
 
 ## Graphics with ggplot2
 
