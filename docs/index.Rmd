@@ -5,11 +5,16 @@ output:
     theme: white
     center: true
     transition: none
-    incremental: true
 ---
 ```{r setup, include=FALSE}
 require(ggplot2)
 ```
+
+## This Course:
+>- Is a programming course rather than a Statistical theory course
+>- Cannot teach you everything there is to know about R
+>- Can teach you how to teach yourself
+>- Will make you an expert in R
 
 ## Warning: Programming is Frustrating
 - All statistical analysis requires the use of the computer
@@ -19,10 +24,10 @@ require(ggplot2)
 
 ## Computing Basics
 - Stay organized. Create a folder for STAT 408, subfolders as needed for notes, homework, ...
-- We will work with .Rmd, .R, .sas, code files
-- Data files: .csv, .txt, .sas7bdat
+- We will work with .qmd, .Rmd, .R files
+- Data files: .csv, .txt
 - Know where files reside
-- Back up your work: Google Drive, Dropbox, montana.box.com
+- Back up your work: onedrive (Free for MSU Students), Google Drive, Dropbox
 
 ## Programming in General
 - Plan ahead "Top-Down" programming
@@ -45,88 +50,3 @@ require(ggplot2)
 - A point-and-click environment.
 - A commercial product with professional support staff.
 
-
-## Homework 
-Homework #1 is available on the course webpage.
-
-- Create a folder on your primary computer to store STAT408 materials.
-
-- Install R and R Studio.
-
-- Create a RMarkdown document and answer a set of questions (about yourself). Turn in your .HTML output to D2L prior to class on Thursday
-
-## Tidyverse Demo
-
->- The `tidyverse` contains `dplyr`, `ggplot2` and a set of other useful R packages. 
- 
->- Most of the packages in the tidyverse were created by Hadley Wickham.
-
->- The tidyverse is a modern way to express R code for data wrangling, storage, and visualization.
-
-```{r, eval = F}
-install.packages('tidyverse')
-```
-
-## Loading Packages
-There are two steps for using packages: installation and loading.
-
-```{r}
-library(tidyverse)
-```
-
-## Reading Data into R
-
->- The [readr](https://readr.tidyverse.org) package is very useful for reading data into R.
-
-
-```{r}
-okcupid <- read_csv('http://math.montana.edu/ahoegh/teaching/stat408/datasets/OKCupid_profiles_clean.csv')
-```
-
-
-## Data Manipulation with dplyr
-
->- [dplyr](https://dplyr.tidyverse.org) is useful for data manipulation and can be characterized by a set of verbs:
-  >- select
-  >- filter
-  >- group_by
-  >- mutate
-  >- sample...
-
-
-```{r}
-sample_n(okcupid,2)
-```
-
-
-## piping with %>%
-
->- The symbol %>% is a piping operator that can be used to connect commands
-
-```{r}
-okcupid %>% group_by(sex) %>% summarize(average_age = mean(age))
-```
-
-
-## Graphics with ggplot2
-
->- [ggplot](https://ggplot2.tidyverse.org) stands for the grammar of graphics and can be used to create figures in R.
-
->- Layers of ggplot components are layered on top of each other using the + operator.
-
-```{r, eval = F}
-okcupid %>% 
-  filter(sex == 'm') %>% 
-  ggplot(aes(x = body_type, y = height)) + 
-  geom_violin() + 
-  ggtitle("Male Heights by Self-Reported Body Type") + 
-  xlab('Self Reported Body Type') + 
-  ylab('Height (inches)') + 
-  geom_jitter(alpha = .01)
-```
-
-## Graphics with ggplot2
-
-```{r, echo = F}
-okcupid %>% filter(sex == 'm') %>% ggplot(aes(x = body_type, y = height)) + geom_violin() + ggtitle("Male Heights by Self-Reported Body Type") + xlab('Self Reported Body Type') + ylab('Height (inches)') + geom_jitter(alpha = .01)
-```
